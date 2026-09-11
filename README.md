@@ -1,53 +1,45 @@
-# Magento Widget Parameters
+# Magento 2 Widget Parameters — utrzymywany fork (SISL)
 
-Useful widget parameter types for improved CMS Page building in Magento 2. Adds new parameter types like an image selector, wysiwyg text editor, or textarea. You can now use these parameter types in your custom widgets.
+Dodaje **bogatsze typy pól w konfiguracji widgetów** Magento 2. Standardowo parametr widgetu to
+zwykły `text` — ten moduł dokłada trzy typy przydatne przy budowie widgetów z treścią:
 
-## How to Use
+- **WYSIWYG** — pełny edytor treści jako parametr widgetu (formatowanie, linki),
+- **Textarea** — wieloliniowe pole tekstowe,
+- **Image Chooser** — wybór obrazu z galerii mediów Magento zamiast wklejania ścieżki.
 
-### Image Selector
+Dzięki temu własne widgety (bloki promocyjne, bannery, sekcje CMS) da się konfigurować wygodnie
+z panelu, bez ręcznego wpisywania HTML-a czy ścieżek do plików.
 
-```xml
-<parameter xsi:type="block" name="background_image" visible="true" sort_order="10">
-    <label translate="true">Background Image</label>
-    <block class="Dmatthew\WidgetParameters\Block\Adminhtml\Widget\Type\ImageChooser">
-        <data>
-            <item name="button" xsi:type="array">
-                <item name="open" xsi:type="string">Choose Image...</item>
-            </item>
-        </data>
-    </block>
-</parameter>
+To utrzymywany fork **zarchiwizowanego** `dmatthew/magento2-widget-parameters` (ostatni commit 2022).
+Oryginał deklaruje `php ^7.1||^8.0` i nie ma przypiętego `magento/framework` — instaluje się „po cichu",
+ale nie był testowany pod nowsze wydania. Ten fork doprecyzowuje zależności i jest zweryfikowany na
+**Magento 2.4.9 / PHP 8.4** (di:compile + instancjacja komponentów modułu).
+
+## Zgodność
+- Magento **2.4.4 – 2.4.9** (Open Source / Adobe Commerce)
+- PHP **8.1 – 8.4**
+- `magento/framework >=103.0.4 <104`, `magento/module-cms >=104.0.0 <105`
+
+## Instalacja
+```bash
+composer config repositories.sisl-widget-parameters vcs https://github.com/SISL-source/magento2-widget-parameters
+composer require dmatthew/magento2-widget-parameters:dev-main
+bin/magento module:enable Dmatthew_WidgetParameters
+bin/magento setup:upgrade
+bin/magento setup:di:compile   # tryb produkcyjny
 ```
 
-![Image Chooser](docs/screenshots/ImageChooserWidgetParameter.png)
-
-### Textarea
-
-```xml
-<parameter xsi:type="block" name="body_text" visible="true" sort_order="10">
-    <label translate="true">Body Text</label>
-    <block class="Dmatthew\WidgetParameters\Block\Adminhtml\Widget\Type\Textarea" />
-</parameter>
-```
-
-![Image Chooser](docs/screenshots/TextareaWidgetParameter.png)
-
-### Wysiwyg
+## Jak używać
+W definicji widgetu (`widget.xml` Twojego modułu) ustaw typ parametru na jeden z bloków renderujących:
 
 ```xml
-<parameter xsi:type="block" name="body_text" visible="true" sort_order="10">
-    <label translate="true">Body Text</label>
-    <block class="Dmatthew\WidgetParameters\Block\Adminhtml\Widget\Type\Wysiwyg" />
+<parameter name="content" xsi:type="block" visible="true" sort_order="10">
+    <label>Treść</label>
+    <block class="Dmatthew\WidgetParameters\Block\Adminhtml\Widget\Type\Wysiwyg"/>
 </parameter>
 ```
+Dostępne klasy: `...\Widget\Type\Wysiwyg`, `...\Widget\Type\Textarea`, `...\Widget\Type\ImageChooser`.
+Po tej zmianie edytor pojawia się w formularzu konfiguracji widgetu (Content → Widgets).
 
-![Image Chooser](docs/screenshots/WysiwygWidgetParameter.png)
-
-## License
-
-[MIT](/LICENSE.txt)
-
-## Attribution
-
-This software uses Open Source software. See the [ATTRIBUTION](ATTRIBUTION.md) page for these projects.
-
+## Licencja
+MIT (jak oryginał). Fork utrzymywany przez [SISL](https://sisl.pl).
