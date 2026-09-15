@@ -21,9 +21,9 @@ ale nie był testowany pod nowsze wydania. Ten fork doprecyzowuje zależności i
 - `magento/framework >=103.0.4 <104`, `magento/module-cms >=104.0.0 <105`
 
 ## Instalacja
+
 ```bash
-composer config repositories.sisl-widget-parameters vcs https://github.com/SISL-source/magento2-widget-parameters
-composer require dmatthew/magento2-widget-parameters:dev-main
+composer require sisl-source/magento2-widget-parameters
 bin/magento module:enable Dmatthew_WidgetParameters
 bin/magento setup:upgrade
 bin/magento setup:di:compile   # tryb produkcyjny
