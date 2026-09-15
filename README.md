@@ -1,45 +1,45 @@
-# Magento 2 Widget Parameters — utrzymywany fork (SISL)
+# Magento 2 Widget Parameters — maintained fork (SISL)
 
-Dodaje **bogatsze typy pól w konfiguracji widgetów** Magento 2. Standardowo parametr widgetu to
-zwykły `text` — ten moduł dokłada trzy typy przydatne przy budowie widgetów z treścią:
+Adds **richer field types to Magento 2 widget configuration**. By default a widget parameter is a
+plain `text` field — this module adds three types that are handy when building content widgets:
 
-- **WYSIWYG** — pełny edytor treści jako parametr widgetu (formatowanie, linki),
-- **Textarea** — wieloliniowe pole tekstowe,
-- **Image Chooser** — wybór obrazu z galerii mediów Magento zamiast wklejania ścieżki.
+- **WYSIWYG** — a full content editor as a widget parameter (formatting, links),
+- **Textarea** — a multi-line text field,
+- **Image Chooser** — pick an image from the Magento media gallery instead of pasting a path.
 
-Dzięki temu własne widgety (bloki promocyjne, bannery, sekcje CMS) da się konfigurować wygodnie
-z panelu, bez ręcznego wpisywania HTML-a czy ścieżek do plików.
+This makes custom widgets (promo blocks, banners, CMS sections) comfortable to configure from the
+admin, with no hand-written HTML or file paths.
 
-To utrzymywany fork **zarchiwizowanego** `dmatthew/magento2-widget-parameters` (ostatni commit 2022).
-Oryginał deklaruje `php ^7.1||^8.0` i nie ma przypiętego `magento/framework` — instaluje się „po cichu",
-ale nie był testowany pod nowsze wydania. Ten fork doprecyzowuje zależności i jest zweryfikowany na
-**Magento 2.4.9 / PHP 8.4** (di:compile + instancjacja komponentów modułu).
+This is a maintained fork of the **archived** `dmatthew/magento2-widget-parameters` (last commit
+2022). The original declares `php ^7.1||^8.0` and pins no `magento/framework` — it installs
+"silently" but was never tested against newer releases. This fork tightens the dependencies and is
+verified on **Magento 2.4.9 / PHP 8.4** (di:compile + instantiation of the module's components).
 
-## Zgodność
+## Compatibility
 - Magento **2.4.4 – 2.4.9** (Open Source / Adobe Commerce)
 - PHP **8.1 – 8.4**
 - `magento/framework >=103.0.4 <104`, `magento/module-cms >=104.0.0 <105`
 
-## Instalacja
+## Installation
 
 ```bash
 composer require sisl-source/magento2-widget-parameters
 bin/magento module:enable Dmatthew_WidgetParameters
 bin/magento setup:upgrade
-bin/magento setup:di:compile   # tryb produkcyjny
+bin/magento setup:di:compile   # production mode
 ```
 
-## Jak używać
-W definicji widgetu (`widget.xml` Twojego modułu) ustaw typ parametru na jeden z bloków renderujących:
+## How to use
+In your module's widget definition (`widget.xml`) set the parameter type to one of the rendering blocks:
 
 ```xml
 <parameter name="content" xsi:type="block" visible="true" sort_order="10">
-    <label>Treść</label>
+    <label>Content</label>
     <block class="Dmatthew\WidgetParameters\Block\Adminhtml\Widget\Type\Wysiwyg"/>
 </parameter>
 ```
-Dostępne klasy: `...\Widget\Type\Wysiwyg`, `...\Widget\Type\Textarea`, `...\Widget\Type\ImageChooser`.
-Po tej zmianie edytor pojawia się w formularzu konfiguracji widgetu (Content → Widgets).
+Available classes: `...\Widget\Type\Wysiwyg`, `...\Widget\Type\Textarea`, `...\Widget\Type\ImageChooser`.
+After this change the editor shows up in the widget configuration form (Content → Widgets).
 
-## Licencja
-MIT (jak oryginał). Fork utrzymywany przez [SISL](https://sisl.pl).
+## License
+MIT (same as upstream). Fork maintained by [SISL](https://sisl.pl).
