@@ -1,5 +1,5 @@
 {
-    "name": "dmatthew/magento2-widget-parameters",
+    "name": "sisl-source/magento2-widget-parameters",
     "description": "Custom widget parameter types for improved CMS Page building",
     "require": {
         "php": "~8.1.0 || ~8.2.0 || ~8.3.0 || ~8.4.0 || ~8.5.0",
